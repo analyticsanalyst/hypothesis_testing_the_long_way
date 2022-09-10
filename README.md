@@ -1,14 +1,5 @@
-Foundational Hypothesis Tests the Long Way
+Hypothesis Testing the Long Way
 ================
-
-### Notebook Objective/Context
-
-  - This notebook applies hypothesis testing methods using formulas and
-    base R vs out of the box functions.
-  - The spirit of this notebook is to “show your work” to build further
-    intuition.
-
-<!-- end list -->
 
 ``` r
 options(scipen=999) 
@@ -18,19 +9,26 @@ library(infer)
 library(openintro)
 ```
 
-### Single Prop Hypothesis Test
+### Notebook Objective
+
+  - This notebook applies hypothesis testing methods using formulas and
+    base R vs out of the box functions.
+  - The spirit of this notebook is to “show your work” to build further
+    intuition.
+
+### Single Proportion Hypothesis Test
 
 ##### Use Case
 
-  - Test a claim for a population proportion using a sample (i.e. is the
-    survey support rate for new gun laws different from 50%?)
+  - Test a claim for a population proportion using a sample (i.e. do a
+    majority of folks in the USA support new gun laws?)
 
 ##### Conditions
 
   - We check the following conditions in order to use the normal model
   - Observations are independent
-  - Using pnull probability, number of failures \>= 10 and number of
-    successes \>= 10
+  - Number of failures \>= 10 and number of successes \>= 10 (using null
+    hypothesis proportion)
 
 ##### Example
 
@@ -55,7 +53,7 @@ coin_flips <- sample(coin, sample_size, replace = TRUE)
 ### observed sample proportion
 p_hat_heads <- mean(coin_flips=="heads")
 
-### derive standard error using  p_null
+### derive standard error using p_null
 se <- sqrt((p_null*(1-p_null))/sample_size)
 
 ### test stat for single prop
@@ -86,7 +84,7 @@ paste("Pvalue below the alpha_significance_level:",
 ##### Conclusion
 
   - We fail to reject the null hypothesis. In other words, we do not
-    have strong enough evidence to suggest the coin heads flip
+    have strong enough evidence to suggest the heads coin flip
     proportion is different from 0.5.
 
 ### Grouped Observations Prop Hypothesis Test
@@ -94,6 +92,7 @@ paste("Pvalue below the alpha_significance_level:",
 ##### Use Case
 
   - Test if two group proportions are different
+  - Use sample data to infer about the population of interest
 
 ##### Conditions
 
@@ -214,9 +213,10 @@ paste("Pvalue below the alpha_significance_level:",
   - We do not have enough evidence to reject the null hypothesis in
     favor of the alternative hypothesis.
   - Note the wording above, we are not saying there is not a difference.
-  - Rather, given the sample size and sample group proportions we do not
-    have enough evidence to suggest the observed difference was unlikely
-    under the null hypothesis distribution of no difference.
+  - Rather, given the sample size and sample group proportions observed
+    we do not have enough evidence to suggest the observed difference
+    were unlikely under the null hypothesis distribution of no
+    difference.
 
 ### Chi-square Goodness of Fit Test
 
@@ -235,7 +235,7 @@ paste("Pvalue below the alpha_significance_level:",
 
 ##### Example
 
-  - In a bag of Skittles, are the color Skittle counts different?
+  - In a bag of Skittles, are the Skittle color counts different?
   - Ho: category level counts are equal
   - Ha: at least one category level count is not equal
 
@@ -280,7 +280,7 @@ paste("Pvalue below the alpha_significance_level:",
 
 ``` r
 ### results tie with out of the box function
-# stats::chisq.test(x=skittles_bag$count, 
+# stats::chisq.test(x=skittles_bag$count,
 #                    p=rep(1/5,5),
 #                    correct=T)
 ```
@@ -375,7 +375,7 @@ paste("Pvalue below the alpha_significance_level:",
 
   - Pvaule is below significance level therefore we reject the null
     hypothesis in favor of the alternative hypothesis.
-  - We can conclude that we have evidence to suggest at least one of the
+  - We conclude that we have evidence to suggest at least one of the
     treatments performs differently than the others.
 
 ### Single Group Mean Hypothesis Test
@@ -481,7 +481,8 @@ paste("Pvalue below the alpha_significance_level:",
 
 ##### Use Case
 
-  - Test if there is a difference between group means
+  - Test if there is a difference between population group means using
+    sample data
 
 ##### Conditions
 
@@ -674,6 +675,6 @@ paste("Pvalue below the alpha_significance_level:",
   - [OpenIntro Statistics 4th
     Edition](https://www.openintro.org/book/os/)
 
-### Open Todo
+### Future TODO
 
   - Add paired observation hypothesis tests
